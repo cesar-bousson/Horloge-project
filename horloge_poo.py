@@ -5,18 +5,20 @@ import pygame
 import threading
 import datetime
 
-class PyClock:
+class PyClock():
     def __init__(self,date:tuple,am_pm):
         self.date = date
         self.am_pm = am_pm
-        #AM/PM SETTINGS
+
+    def check(self):
         if self.am_pm == 12 or self.am_pm == 24:
             pass
         else:
             raise TypeError("Are you idiot or what ?")
-        #CHECKING
+            # CHECKING
         if self.date[0] > 24 or self.date[1] > 60 or self.date[2] > 60:
-            raise TypeError("Please set a normal date.")
+            pass
+            #raise TypeError("Please set a normal date.")
         if self.am_pm == 12:
             if self.date[0] >= 12:
                 raise TypeError("Please set date to 12h format.")
@@ -25,18 +27,25 @@ class PyClock:
         """Function displaying time with hh:mm:ss format"""
         if self.date[0] < 10 and self.date[1] < 10 and self.date[2] < 10:#0 0 0
             return f"0{self.date[0]} : 0{self.date[1]} : 0{self.date[2]}"
+
         if self.date[0] >= 10 and self.date[1] >= 10 and self.date[2] >= 10:#. . .
             return f"{self.date[0]} : {self.date[1]} : {self.date[2]}"
+
         if self.date[0] < 10 and self.date[1] >= 10 and self.date[2] < 10:#0 . 0
             return f"0{self.date[0]} : {self.date[1]} : 0{self.date[2]}"
+
         if self.date[0] >= 10 and self.date[1] < 10 and self.date[2] >= 10:#. 0 .
             return f"{self.date[0]} : 0{self.date[1]} : {self.date[2]}"
+
         if self.date[0] < 10 and self.date[1] >= 10 and self.date[2] >= 10:#0 . .
             return f"0{self.date[0]} : {self.date[1]} : {self.date[2]}"
+
         if self.date[0] >= 10 and self.date[1] >= 10 and self.date[2] < 10:#. . 0
             return f"{self.date[0]} : {self.date[1]} : 0{self.date[2]}"
+
         if self.date[0] < 10 and self.date[1] < 10 and self.date[2] >= 10:#0 0 .
             return f"0{self.date[0]} : 0{self.date[1]} : {self.date[2]}"
+
         if self.date[0] >= 10 and self.date[1] < 10 and self.date[2] < 10:#. 0 0
             return f"{self.date[0]} : 0{self.date[1]} : 0{self.date[2]}"
 
@@ -44,6 +53,7 @@ class PyClock:
         """Methdod changing date/format."""
         self.date = times
         self.am_pm = form
+        self.check()
 
     def set_live(self):
         """Set actual time."""
@@ -95,9 +105,8 @@ class PyClock:
         """Method refreshing time every second"""
         stop = False
         while not stop:
-            os.system("cls" if os.name == "nt" else "clear")
+            os.system("cls" if os.name == "nt" else "clear") #clear le terminal
             self.changing_time()
-            self.interact()
             time.sleep(1)
 
     def alarm(self,delta:tuple):
