@@ -1,9 +1,10 @@
 from horloge_poo import PyClock
+import time
 
 class Console(PyClock):
     def __init__(self,date,am_pm):
         super().__init__(date,am_pm)
-        self.console = PyClock((0,0,0),24)
+        # self.console = PyClock((0,0,0),24)
 
     def home(self):
         (print
@@ -28,7 +29,7 @@ class Console(PyClock):
         #answer = int(input("                     ----------------------  Your answer :  -----------------------------\n"))
 
     def options(self):
-        print(
+        print("""
             "                    --------------------------------------------------------------------\n",
             "                    ----------------------------  Settings.  ---------------------------\n",
             "                    --------------------------------------------------------------------\n",
@@ -39,39 +40,58 @@ class Console(PyClock):
             "                    --------------------------------------------------------------------\n",
             "                    -----------------------  Clock set to : ----------------------------\n",
             f"                   -----------------------  {print(self.get_date())}  ------------------------------\n",
-            "                    --------------------------------------------------------------------")
+            "                    --------------------------------------------------------------------
+            """)
 
     def interaction(self):
         self.home()
-        answer = int(input("                     ----------------------  Your answer :  -----------------------------\n"))
-        if not 0 < answer < 7:
-            print("This option doesn't exist. Please retry...")
-        if answer == 1:
-            print(self.display_time())
-        if answer == 2:
-            print(self.live_timing())
-        if answer == 3:
-            hour = int(input("Hour : "))
-            minute = int(input("Minute : "))
-            second = int(input("Second : "))
-            print(self.alarm((hour,minute,second)))
-        if answer == 4:
-            print(self.stopwatch())
-        if answer == 5:
-            hour = int(input("Hour : "))
-            minute = int(input("Minute : "))
-            second = int(input("Second : "))
-            print(self.timer([hour,minute,second]))
-        if answer == 6:
-            self.options()
-        """
-        if answer == 1:
-            print("Not possible yet")
-            heure = int(input("Hour : "))
-            minute = int(input("Minute : "))
-            second = int(input("Second : "))
-            format = int(input("Format (12/24) : "))
-            self.set_date((heure,minute,second),format)
-        if answer == 2:
-            self.home()
-        """
+        
+        try:
+            
+            answer = int(input("                     ----------------------  Your answer :  -----------------------------\n"))
+            if not 1 < answer < 6:
+                print(" Warning ! This option doesn't exist. Please retry in 3 seconds")
+                time.sleep(5)
+                return
+            elif answer == 1:
+                print(self.display_time())
+            elif answer == 2:
+                print(self.live_timing())
+            elif answer == 3:
+                hour = int(input("Hour : "))
+                minute = int(input("Minute : "))
+                second = int(input("Second : "))
+                print(self.alarm((hour,minute,second)))
+            elif answer == 4:
+                print(self.stopwatch())
+            elif answer == 5:
+                hour = int(input("Hour : "))
+                minute = int(input("Minute : "))
+                second = int(input("Second : "))
+                print(self.timer([hour,minute,second]))
+            elif answer == 6:
+                self.options()
+            else:
+                print("Choice must be between number 1 and 6 in the menu.")
+                return    
+            
+        except ValueError:
+            print("Error :Try again between choice 1-2-3-5-6 in 3 seconds.")
+            time.sleep(3)
+            return 
+        
+    interaction()  
+            
+            
+            
+        # """
+        # if answer == 1:
+        #     print("Not possible yet")
+        #     heure = int(input("Hour : "))
+        #     minute = int(input("Minute : "))
+        #     second = int(input("Second : "))
+        #     format = int(input("Format (12/24) : "))
+        #     self.set_date((heure,minute,second),format)
+        # if answer == 2:
+        #     self.home()
+        # """
