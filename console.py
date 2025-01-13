@@ -80,18 +80,5 @@ class Console(PyClock):
             time.sleep(3)
             return 
         
-    interaction()  
+#    interaction()  
             
-            
-            
-        # """
-        # if answer == 1:
-        #     print("Not possible yet")
-        #     heure = int(input("Hour : "))
-        #     minute = int(input("Minute : "))
-        #     second = int(input("Second : "))
-        #     format = int(input("Format (12/24) : "))
-        #     self.set_date((heure,minute,second),format)
-        # if answer == 2:
-        #     self.home()
-        # """
